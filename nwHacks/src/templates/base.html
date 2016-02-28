@@ -55,24 +55,100 @@
 </nav>
 
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+
+    <!--font awesome-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <!-- bootstrap.min -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+    <!--Google Fonts-->
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+
     <style>
         html, body {
+            font-family: 'Montserrat', sans-serif;
             height: 100%;
             width: 100%;
             margin: 0 auto;
             padding: 40px 75px 0px 75px;
         }
         #map {
-            height: 100%;
+            height: 70%;
+            margin-left: 60px;
+            margin-right: 60px;
         }
+        .base-title h1{
+        font-size: 100px;
+        color: #3b92a1;
+        text-transform: uppercase;
+        text-align: center;
+        }
+        .welcome-tag h3{
+        font-size: 40px;
+        text-transform: uppercase;
+        text-align: center;
+        }
+        .logout-button {
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        .login-reg {
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        .new-post {
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+        .btn-custom {
+            background-color: #fff;
+            text-transform: uppercase;
+            border-color: #000;
+            border-radius: 8px;
+            padding-left: 5%;
+            padding-right: 5%
+        }
+        .btn-custom a {
+            font-size: 16px;
+            color: #000;
+        }
+        input[type=text], select {
+            width: 80%;
+            padding: 14px 5px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=submit] {
+            width: 15%;
+            background-color: #3b92a1;
+            color: white;
+            padding: 14px 5px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type=submit]:hover {
+            background-color: #3b92a1;
+        }
+        th {
+        background-color: #3b92a1;
+        color: white;
+}
     </style>
-    <title>Thirsty for Study</title>
+
+    <title>Study Buddy</title>
 </head>
 
 <body>
+<<<<<<< HEAD
 {% block content %}
     {% if messages %}
         {% for message in messages %}
@@ -89,6 +165,49 @@
             <th>Attendees</th>
         </tr>
         {% for post in posts %}
+=======
+
+<div class = 'container'>
+    <div class="base-title">
+        <h1><a href="/posts"><i class="fa fa-book"></i>&nbsp;Study Buddy</a></h1>
+    </div>
+
+    {% if user.is_authenticated %}
+        <div>
+            <div class="welcome-tag">
+                <h3>Welcome, {{ user.username }}</h3>
+                <div class="logout-button">
+                    <button class="btn-custom">
+                        <a href="logout/">Logout</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="login-reg">
+            <button class="btn-custom">
+                <a href="login/">Login</a>
+            </button>
+            <button class="btn-custom">
+                <a href="register/">Register</a>
+            </button>
+        </div>
+
+    {% endif %}
+
+    {% block content %}
+        {% if messages %}
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        {% endif %}
+
+        <form method ="GET" action="">
+            <input type="text" name="q" placeholder="Search Posts" value="{% if query %}{{ query }}{% endif %}"/>
+            <input type="submit" value="Search"/>
+        </form>
+        <table class="table table-striped">
+>>>>>>> e9e9bea1aa1542b10870ea5b222d0c000620150b
             <tr>
                 <td>{{ post.course }}</td>
                 <td>{{ post.address }}</td>
@@ -97,11 +216,30 @@
                 <td>{{ post.end_time }}</td>
                 <td>{{ post.attendees }}</td>
             </tr>
-        {% endfor %}
-    </table>
-    {#        <p><a href="create/">add a new post</a></p>#}
+            {% for post in posts %}
+                <tr>
+                    <td>{{ post.course }}</td>
+                    <td>{{ post.address }}</td>
+                    <td><a href="{{ post.slug }}"> {{ post.title }}</a></td>
+                    <td>{{ post.start_time}}</td>
+                    <td>{{ post.end_time }}</td>
+                    <td>{{ post.attendees }}</td>
+                </tr>
+            {% endfor %}
+        </table>
 
+<<<<<<< HEAD
 {% endblock content %}
+=======
+        {% if user.is_authenticated %}
+        <div class="new-post">
+            <button class="btn-custom">
+                <a href="create/">Add a New Post</a>
+            </button>
+        </div>
+        {% endif %}
+    {% endblock content %}
+>>>>>>> e9e9bea1aa1542b10870ea5b222d0c000620150b
 </div>
 
 <p></p>
@@ -112,6 +250,7 @@
 <!--*********************************************************-->
 
 <div id="map"></div>
+<<<<<<< HEAD
 {#<<<<<<< HEAD#}
 <script>
     // Note: This example requires that you consent to location sharing when
@@ -136,6 +275,46 @@
                     position: pos,
                     map: map,
                     title: "I'm here"
+=======
+    <script>
+        // Note: This example requires that you consent to location sharing when
+        // prompted by your browser. If you see the error "The Geolocation service
+        // failed.", it means you probably did not give permission for the browser to
+        // locate you.
+
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 49.2827, lng: 123.1207},
+                zoom: 15
+            });
+            // Try HTML5 geolocation.
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+
+                    var marker = new google.maps.Marker({
+                        position: pos,
+                        map: map,
+                        title: "I'm here"
+                    });
+
+                    var infowindow = new google.maps.InfoWindow({
+                        content: "You are here"});
+
+                    marker.addListener('click',function() {
+                        infowindow.open(map,marker);
+                    });
+
+                    //infoWindow.setPosition(pos);
+                    //infoWindow.setContent('Location found.');
+                    infowindow.open(map,marker);
+                    map.setCenter(pos);
+                }, function() {
+                    handleLocationError(true, infoWindow, map.getCenter());
+>>>>>>> e9e9bea1aa1542b10870ea5b222d0c000620150b
                 });
 
                 var infowindow = new google.maps.InfoWindow({
