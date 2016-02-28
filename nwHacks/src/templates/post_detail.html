@@ -12,31 +12,32 @@
     <body>
     <div class="elt">
         <ul class="list-group">
-            <li class="list-group-item">Course: {{ post.course }}</li>
-            <li class="list-group-item">Time: {{ post.start_time }} - {{ post.end_time }}</li>
-            <li class="list-group-item">Location:  {{ post.address }}, {{ post.city }}</li>
+            <li class="list-group-item"><b>Course</b>: {{ post.course }}</li>
+            <li class="list-group-item"><b>Time</b>: {{ post.start_time }} - {{ post.end_time }}</li>
+            <li class="list-group-item"><b>Location</b>:  {{ post.address }}, {{ post.city }}</li>
             {#            <li class="list-group-item">Lat:  {{ post.lat }}</li>#}
             {#            <li class="list-group-item">Lon:  {{ post.lon }}</li>#}
-            <li class="list-group-item">Author: {{ post.author }}</li>
-            <li class="list-group-item">Contact: {{ post.phone_number }}</li>
-            <li class="list-group-item">Content: {{ post.content }}</li>
-            <li class="list-group-item">Posted: {{ post.timestamp }}</li>
-            <li class="list-group-item">Modified: {{ post.updated }}</li>
+            <li class="list-group-item"><b>Author</b>: {{ post.author }}</li>
+            <li class="list-group-item"><b>Contact</b>: {{ post.phone_number }}</li>
+            <li class="list-group-item"><b>Details</b>: {{ post.content }}</li>
+            <li class="list-group-item"><b>Posted</b>: {{ post.timestamp }}</li>
+            <li class="list-group-item"><b>Modified</b>: {{ post.updated }}</li>
         </ul>
         {% if user.is_authenticated %}
             {% if user.username == post.user.username %}
-                <button><a href="modify/" style="text-decoration:none;"> modify post </a></button>
-                <button><a href="delete/" style="text-decoration:none;"> delete post </a></button>
+                <button class="form-control"><a href="modify/" style="text-decoration:none;"> modify post </a></button>
+                <button class="form-control"><a href="delete/" style="text-decoration:none;"> delete post </a></button>
             {% endif %}
-            <button><a href="comment/" style="text-decoration:none;"> post comment </a></button>
-            <button><a href="attend/" style="text-decoration:none;"> attend </a></button>
+            <button class="form-control"><a href="comment/" style="text-decoration:none;"> post comment </a></button>
+            <button class="form-control"><a href="attend/" style="text-decoration:none;"> attend </a></button>
         {% endif %}
-        <h1>Comment Section</h1>
+        <h3>Comments</h3>
+    <ul class="list-group">
         {% for comment in comments %}
-            <p>Author: {{ comment.user.username }}</p>
-            <p>{{ comment.content }}</p>
-            <p>{{ comment.timestamp }}</p><br>
+            <li class="list-group-item">{{ comment.timestamp }}<br><b>{{ comment.user.username }}</b>:
+            {{ comment.content }}</li>
         {% endfor %}
+    </ul>
 
     </div>
     <div class="elt">
